@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.db.models import Q
 
 from .models import User
-
+from .serializers import UserSerializer
 
 
 @api_view(['GET'])
@@ -16,10 +17,16 @@ def endpoints(request):
 @api_view(['GET'])
 def user_list(request):
     # data = ['Ratul', 'Intiser', 'Hasib']
-    users =  User.objects.all()
-    return Response(users)
+    query = request.GET.get('query')
+    if query == None:
+        query = ''
+
+    users =  User.objects.filter(Q(username__icontains=query)| Q(bio__icontains=query))
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def user_detail(request, username):
-    data = username
-    return Response(data)
+    user = User.objects.get(username=username)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
