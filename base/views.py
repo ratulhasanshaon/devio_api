@@ -26,6 +26,7 @@ def user_list(request):
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 
+    #Handles POST requests
     if request.method == 'POST':
         user = User.objects.create(
             username = request.data['username'],
@@ -34,8 +35,23 @@ def user_list(request):
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def user_detail(request, username):
     user = User.objects.get(username=username)
-    serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
+
+    if request.method == 'GET':
+        
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data)
+
+    if request.method == 'PUT':
+        user.username = request.data['username']
+        user.bio = request.data['bio']
+        user.save()
+
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        user.delete()
+        return Response('users was deleted')
