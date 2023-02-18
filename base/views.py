@@ -7,6 +7,7 @@ from django.db.models import Q
 from .models import User
 from .serializers import UserSerializer
 
+from rest_framework.views import APIView
 
 @api_view(['GET'])
 def endpoints(request):
@@ -35,23 +36,36 @@ def user_list(request):
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def user_detail(request, username):
-    user = User.objects.get(username=username)
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def user_detail(request, username):
+#     user = User.objects.get(username=username)
 
-    if request.method == 'GET':
+#     if request.method == 'GET':
         
+#         serializer = UserSerializer(user, many=False)
+#         return Response(serializer.data)
+
+#     if request.method == 'PUT':
+#         user.username = request.data['username']
+#         user.bio = request.data['bio']
+#         user.save()
+
+#         serializer = UserSerializer(user, many=False)
+#         return Response(serializer.data)
+
+#     if request.method == 'DELETE':
+#         user.delete()
+#         return Response('users was deleted')
+
+class UserDetails(APIView):
+
+    def get_object(self, username):
+        try:
+            return User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise User
+
+    def get(self, request, username):
+        user = self.get_object(username)
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
-
-    if request.method == 'PUT':
-        user.username = request.data['username']
-        user.bio = request.data['bio']
-        user.save()
-
-        serializer = UserSerializer(user, many=False)
-        return Response(serializer.data)
-
-    if request.method == 'DELETE':
-        user.delete()
-        return Response('users was deleted')
