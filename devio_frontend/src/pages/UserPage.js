@@ -22,10 +22,17 @@ const UserPage = () => {
 
   return (
     <>
-      {user &&(
-        <div>
-          <h1>{user.username}</h1>
-          <h3>{user.bio}</h3>
+      {user && (
+        <div className='user__preview__wrapper user_profile' >
+              <img className='user__preview__image' src={user.profile_pic}/>
+              <br/>
+          <strong>{user.username}</strong>
+          <br/>
+          <a href={user.social_link}>@{user.username}</a>
+          <br/>
+          <small>{user.stack}</small>
+          <br/>
+          <small>{user.bio}</small>
         </div>
       )}
       
