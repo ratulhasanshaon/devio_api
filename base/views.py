@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.db.models import Q
 
-from .models import User
-from .serializers import UserSerializer
+from .models import User, Company
+from .serializers import UserSerializer, CompanySerializer
 
 from rest_framework.views import APIView
 
@@ -63,9 +63,28 @@ class UserDetails(APIView):
         try:
             return User.objects.get(username=username)
         except User.DoesNotExist:
-            raise User
+            raise JsonResponse("User doesn't exists")
 
     def get(self, request, username):
         user = self.get_object(username)
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
+
+    def put(self, request, username):
+        user = self.get_object(username)
+
+        user.username = request.data['username']
+        user.bio = request.data['bio']
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data)
+    
+    def delete(self, request, username):
+        user = self.get_object(username)
+        user.delete()
+        return Response('user was deleted')
+    
+@api_view(['GET'])
+def companies_list(request):
+    companies = Company.objects.all()
+    serializer = CompanySerializer(companies, many=True)
+    return Response(serializer.data)
