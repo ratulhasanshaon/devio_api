@@ -20,11 +20,18 @@ a{
   border: 2px solid greenyellow;
 }
 .user__preview__wrapper{
-  width: 300px;
+  
 }
-.user__list{
+
+.user__preview__header{
   display: flex;
   flex-wrap: wrap;
+  gap: 4px;
+
+}
+.user__list{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2em;
 }
 .main--container{
@@ -34,4 +41,23 @@ a{
 
 .user_profile{
   text-align: center;
+}
+
+.bio--preview{
+  display: block;
+  margin: 1em 0;
+}
+
+.form__wrapper{
+  margin: 2em 0;
+}
+input{
+  padding: 1em;
+  font-size: 16px;
+  background-color: #2b3031;
+  border-radius: 5px;
+  border: none;
+}
+.btn--primary{
+  background-color: aqua;
 }

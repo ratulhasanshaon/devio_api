@@ -10,10 +10,20 @@ from django.db.models import Q
 from .models import User, Company
 from .serializers import UserSerializer, CompanySerializer
 
+import requests
+
 from rest_framework.views import APIView
+
+
+from dotenv import load_dotenv
+load_dotenv()
+import os
+
+TWITTER_API_KEY = os.environ.get('TWITTER_API_KEY')
 
 @api_view(['GET'])
 def endpoints(request):
+    print(TWITTER_API_KEY)
     data = ['/users', 'users/:username']
     return Response(data)
 
@@ -70,7 +80,21 @@ class UserDetails(APIView):
             raise JsonResponse("User doesn't exists")
 
     def get(self, request, username):
+        head = {'Authorization': 'Bearer' + TWITTER_API_KEY }
+        
+        fields = '?user.fields=profile_pic_image_url,description,public_metrics'
+
+        url = "https://api.twitter.com/2/users/by/username/" + str(username) + fields
+        response = requests.get(url, headers=head).json()
+        data = response['data']
+        data['profile_pic_image_url'] = data['profile_pic_image_url'].replace('normal', '400x400')
+
         user = self.get_object(username)
+        user.name = data['name'] 
+        user.profile_pic = data['profile_pic_image_url'] 
+        user.bio = data['description'] 
+        user.social_link = 'https://twitter.com/' + username 
+        user.save()
         serializer = UserSerializer(user, many=False)
         return Response(serializer.data)
 
@@ -92,3 +116,4 @@ def companies_list(request):
     companies = Company.objects.all()
     serializer = CompanySerializer(companies, many=True)
     return Response(serializer.data)
+

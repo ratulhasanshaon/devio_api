@@ -26,7 +26,7 @@ const UserPage = () => {
         <div className='user__preview__wrapper user_profile' >
               <img className='user__preview__image' src={user.profile_pic}/>
               <br/>
-          <strong>{user.username}</strong>
+          <strong>{user.name}</strong>
           <br/>
           <a href={user.social_link}>@{user.username}</a>
           <br/>

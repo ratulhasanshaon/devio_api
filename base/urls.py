@@ -5,6 +5,8 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.endpoints),
@@ -19,4 +21,4 @@ urlpatterns = [
     #path('users/<str:username>/', views.UserDetails.as_view())
     path('companies/', views.companies_list)
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
