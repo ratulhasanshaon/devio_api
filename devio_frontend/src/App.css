@@ -1,6 +1,6 @@
 
 body{
-  color:white;
+  color: whitesmoke;
   background-color: #131415;
   min-height: 100vh;
   display: flex;
@@ -11,13 +11,13 @@ body{
 
 }
 a{
-  color: aquamarine;
+  color: greenyellow;
 }
 .user__preview__image{
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid aqua;
+  border: 2px solid greenyellow;
 }
 .user__preview__wrapper{
   width: 300px;
