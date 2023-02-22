@@ -14,7 +14,8 @@ const UserPage = () => {
   }, [username])
 
   let getData = async () => {
-    let response = await axios.get(`http://127.0.0.1:8000/users/${username}`)
+    let response = await axios.get(`https://devioapi.pythonanywhere.com/users/${username}`)
+    // let response = await axios.get(`http://127.0.0.1:8000/users/${username}`)
     console.log('RESPONSE:', response)
     setUser(response.data)
   }
