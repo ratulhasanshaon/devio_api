@@ -10,10 +10,10 @@ fronend link ( https://devioapi.netlify.app/ )
 # snipshots of endpoint
 
 https://devioapi.pythonanywhere.com/
-(../master/static/endpoint_1.png)
+![DEMO](../master/static/endpoint_1.png)
 
 https://devioapi.pythonanywhere.com/users
-(../master/static/endpoint_2.png)
+![DEMO](../master/static/endpoint_2.png)
 
 https://devioapi.netlify.app/
-(../master/static/frontend.png)
+![DEMO](../master/static/frontend.png)
