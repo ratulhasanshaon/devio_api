@@ -6,6 +6,11 @@ And I have a basic frontend application with react to view the information via t
 api-endpoints ( https://devioapi.pythonanywhere.com/ )
 fronend link ( https://devioapi.netlify.app/ )
 
+# Admin login
+https://devioapi.pythonanywhere.com/admin
+username: admin
+pass: devio@123
+
 
 # snipshots of endpoint
 
