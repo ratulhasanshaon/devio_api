@@ -8,8 +8,6 @@ fronend link ( https://devioapi.netlify.app/ )
 
 # Admin login
 https://devioapi.pythonanywhere.com/admin
-username: admin
-pass: devio@123
 
 
 # snipshots of endpoint
